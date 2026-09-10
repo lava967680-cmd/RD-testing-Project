@@ -1,0 +1,14 @@
+# ControlHub Agent default config (overwritten by installer with real values)
+
+[agent]
+enrollment_token = ""
+server_url       = "https://api.controlhub.io"
+version          = "1.0.0"
+log_level        = "info"
+
+[telemetry]
+interval_seconds = 15
+
+[update]
+auto_update      = true
+update_track     = "stable"

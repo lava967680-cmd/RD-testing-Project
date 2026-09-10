@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DeviceTelemetryPayload",
+  "type": "object",
+  "required": ["device_id", "timestamp", "metrics"],
+  "properties": {
+    "device_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metrics": {
+      "type": "object",
+      "required": ["cpu", "ram", "disk"],
+      "properties": {
+        "cpu": {
+          "type": "object",
+          "required": ["percent"],
+          "properties": {
+            "percent": { "type": "number", "minimum": 0, "maximum": 100 },
+            "cores": { "type": "integer" }
+          }
+        },
+        "ram": {
+          "type": "object",
+          "required": ["used_bytes", "total_bytes", "percent"],
+          "properties": {
+            "used_bytes": { "type": "integer" },
+            "total_bytes": { "type": "integer" },
+            "percent": { "type": "number", "minimum": 0, "maximum": 100 }
+          }
+        },
+        "disk": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["mount", "used_bytes", "total_bytes", "percent"],
+            "properties": {
+              "mount": { "type": "string" },
+              "used_bytes": { "type": "integer" },
+              "total_bytes": { "type": "integer" },
+              "percent": { "type": "number", "minimum": 0, "maximum": 100 }
+            }
+          }
+        },
+        "network": {
+          "type": "object",
+          "properties": {
+            "rx_bytes_sec": { "type": "integer" },
+            "tx_bytes_sec": { "type": "integer" },
+            "local_ip": { "type": "string" }
+          }
+        },
+        "system": {
+          "type": "object",
+          "properties": {
+            "uptime_seconds": { "type": "integer" },
+            "active_user": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DeviceCommandPayload",
+  "type": "object",
+  "required": ["command_id", "organization_id", "device_id", "command_type", "issued_at", "expires_at", "nonce", "signature"],
+  "properties": {
+    "command_id": { "type": "string", "format": "uuid" },
+    "organization_id": { "type": "string", "format": "uuid" },
+    "device_id": { "type": "string", "format": "uuid" },
+    "command_type": {
+      "type": "string",
+      "enum": ["REBOOT", "SHUTDOWN", "RUN_SCRIPT", "INSTALL_PACKAGE", "TERMINATE_SESSION"]
+    },
+    "parameters": { "type": "object" },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "expires_at": { "type": "string", "format": "date-time" },
+    "nonce": { "type": "string" },
+    "signature": { "type": "string" }
+  }
+}

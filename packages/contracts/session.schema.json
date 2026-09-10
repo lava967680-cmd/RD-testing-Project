@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RemoteSessionSignalingPayload",
+  "type": "object",
+  "required": ["session_id", "type"],
+  "properties": {
+    "session_id": { "type": "string", "format": "uuid" },
+    "type": {
+      "type": "string",
+      "enum": ["OFFER", "ANSWER", "ICE_CANDIDATE", "CONSENT_REQUEST", "CONSENT_RESPONSE", "TERMINATE"]
+    },
+    "sdp": { "type": "string" },
+    "candidate": { "type": "object" },
+    "consent_granted": { "type": "boolean" },
+    "reason": { "type": "string" }
+  }
+}

@@ -1,0 +1,45 @@
+# Binaries and compiled files
+bin/
+dist/
+build/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Dependencies
+node_modules/
+vendor/
+target/
+
+# Go
+*.out
+*.test
+services/**/tmp/
+
+# Rust
+Cargo.lock
+apps/windows-agent/target/
+
+# Environment and Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.pfx
+
+# IDE and OS
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Logs and databases
+*.log
+data/
+pgdata/
+redisdata/
