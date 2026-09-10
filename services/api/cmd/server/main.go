@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -16,8 +17,21 @@ import (
 func main() {
 	cfg := config.Load()
 
-	// Initialize Store (In-Memory with seed data; configurable for PostgreSQL)
-	st := store.NewMemoryStore()
+	// Initialize Store: real PostgreSQL in production, in-memory for quick
+	// local dev when ENVIRONMENT is not set to "production".
+	var st store.Store
+	if cfg.Environment == "production" {
+		pgStore, err := store.NewPostgresStore(context.Background(), cfg.DatabaseURL)
+		if err != nil {
+			log.Fatalf("FATAL: could not connect to PostgreSQL: %v", err)
+		}
+		defer pgStore.Close()
+		st = pgStore
+		log.Println("Using PostgreSQL store")
+	} else {
+		st = store.NewMemoryStore()
+		log.Println("Using in-memory store (development mode - data will NOT persist)")
+	}
 
 	// Initialize Middlewares & Handlers
 	authMw := middleware.NewAuthMiddleware(cfg.JWTSecret)

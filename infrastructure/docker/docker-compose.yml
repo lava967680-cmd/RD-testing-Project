@@ -6,9 +6,9 @@ services:
     container_name: controlhub-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: controlhub
-      POSTGRES_PASSWORD: controlhub_dev_secret_password
-      POSTGRES_DB: controlhub_db
+      POSTGRES_USER: ${POSTGRES_USER:-controlhub}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in your .env file}
+      POSTGRES_DB: ${POSTGRES_DB:-controlhub_db}
     ports:
       - "5432:5432"
     volumes:
@@ -43,10 +43,11 @@ services:
     restart: unless-stopped
     environment:
       PORT: "8080"
-      DATABASE_URL: "postgres://controlhub:controlhub_dev_secret_password@postgres:5432/controlhub_db?sslmode=disable"
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      DATABASE_URL: "postgres://${POSTGRES_USER:-controlhub}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in your .env file}@postgres:5432/${POSTGRES_DB:-controlhub_db}?sslmode=disable"
       REDIS_URL: "redis://redis:6379/0"
-      JWT_SECRET: "dev-jwt-secret-replace-in-production-min-32-chars-long"
-      CORS_ALLOWED_ORIGINS: "http://localhost:3000"
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in your .env file}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000}
     ports:
       - "8080:8080"
     depends_on:
@@ -64,7 +65,7 @@ services:
     environment:
       PORT: "8081"
       REDIS_URL: "redis://redis:6379/0"
-      JWT_SECRET: "dev-jwt-secret-replace-in-production-min-32-chars-long"
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in your .env file}
     ports:
       - "8081:8081"
     depends_on:
