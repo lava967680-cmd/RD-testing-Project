@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ControlHub
 
 **Enterprise Authorized B2B Remote Device Monitoring and Management Platform**
@@ -126,3 +127,7 @@ cd ../../
 # Run migrations against localhost:5432
 go run services/api/cmd/migrate/main.go up
 ```
+=======
+# RD-testing-Project
+Through the remote control multiple desktop or laptop to single software 
+>>>>>>> 9f24fd221dcbe05fdf7fc6fce7f06a5d2ac2d74a
