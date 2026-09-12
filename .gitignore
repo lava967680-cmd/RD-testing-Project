@@ -43,3 +43,4 @@ Thumbs.db
 data/
 pgdata/
 redisdata/
+services/api/login.json 
